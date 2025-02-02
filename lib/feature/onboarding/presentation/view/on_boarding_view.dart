@@ -12,7 +12,7 @@ class OnBoardingView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          DisplayPage(),
+          const DisplayPage(),
           SmoothPageIndicator(
             count: 2,
             controller: controller,
