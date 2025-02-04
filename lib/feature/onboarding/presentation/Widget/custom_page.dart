@@ -1,3 +1,4 @@
+import 'package:a/core/utlis/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,13 +9,13 @@ class CustomPage extends StatelessWidget {
     required this.image,
     required this.widgetText,
     required this.descText,
-   
+    required this.isvisible,
   });
   final String backgroundimage;
   final String image;
   final Widget widgetText;
   final String descText;
-  
+  final bool isvisible;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,13 @@ class CustomPage extends StatelessWidget {
             ),
             SafeArea(
               child: Visibility(
-               
+                visible: isvisible,
                 child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'تخطى',
+                      style:
+                          AppStyle.regular16.copyWith(color: Colors.blueGrey),
                     )),
               ),
             ),
@@ -42,8 +45,12 @@ class CustomPage extends StatelessWidget {
         ),
         widgetText,
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: Text(descText),
+          padding: const EdgeInsets.symmetric(horizontal: 50),
+          child: Text(
+            textAlign: TextAlign.center,
+            descText,
+            style: AppStyle.semiBold13,
+          ),
         ),
       ],
     );
