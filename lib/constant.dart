@@ -1,0 +1,1 @@
+const konboardSeen='KonboardSeen';

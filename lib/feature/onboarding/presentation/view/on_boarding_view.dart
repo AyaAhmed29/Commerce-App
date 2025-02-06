@@ -1,8 +1,12 @@
-import 'package:a/core/utlis/app_colors.dart';
-import 'package:a/core/utlis/assets.dart';
-import 'package:a/core/utlis/fonts.dart';
-import 'package:a/feature/onboarding/presentation/Widget/custom_page.dart';
+import 'package:commerce_app/constant.dart';
+import 'package:commerce_app/core/utlis/app_colors.dart';
+import 'package:commerce_app/core/utlis/app_router.dart';
+import 'package:commerce_app/core/utlis/assets.dart';
+import 'package:commerce_app/core/utlis/fonts.dart';
+import 'package:commerce_app/core/utlis/service/sharpref_singleton.dart';
+import 'package:commerce_app/feature/onboarding/presentation/Widget/custom_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -42,7 +46,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   widgetText: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('مرحبا بك فى ', style: AppStyle.bold19),
+                      const Text('مرحبا بك فى ', style: AppStyle.bold19),
                       Text(
                         'HUB ',
                         style:
@@ -58,7 +62,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   descText:
                       'اكتشف تجربة تسوق فريده معFruitHUB استكشف مجموعتنا الواسعة من الفواكه الطازجه الممتازه واحصل على افضل العروض والجوده العالية.',
                 ),
-                Column(
+                const Column(
                   children: [
                     CustomPage(
                       isvisible: false,
@@ -94,7 +98,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 style: TextButton.styleFrom(
                   backgroundColor: AppColors.darkGreen,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  SharprefSingleton.setBool(konboardSeen, true);
+                  GoRouter.of(context).go(AppRouter.signUp);
+                },
                 child: const Text('ابدأ الان',
                     style: TextStyle(color: Colors.white)),
               ),

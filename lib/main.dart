@@ -1,10 +1,13 @@
-import 'package:a/core/utlis/app_router.dart';
-import 'package:a/generated/l10n.dart';
+import 'package:commerce_app/core/utlis/app_router.dart';
+import 'package:commerce_app/core/utlis/service/sharpref_singleton.dart';
+import 'package:commerce_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharprefSingleton.init();
   runApp(const MyApp());
 }
 

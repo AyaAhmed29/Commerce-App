@@ -1,6 +1,10 @@
-import 'package:a/core/utlis/fonts.dart';
+import 'package:commerce_app/constant.dart';
+import 'package:commerce_app/core/utlis/app_router.dart';
+import 'package:commerce_app/core/utlis/fonts.dart';
+import 'package:commerce_app/core/utlis/service/sharpref_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomPage extends StatelessWidget {
   const CustomPage({
@@ -31,7 +35,10 @@ class CustomPage extends StatelessWidget {
               child: Visibility(
                 visible: isvisible,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      SharprefSingleton.setBool(konboardSeen, true);
+                      GoRouter.of(context).go(AppRouter.signUp);
+                    },
                     child: Text(
                       'تخطى',
                       style:

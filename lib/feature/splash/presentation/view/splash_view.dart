@@ -1,19 +1,34 @@
-import 'package:a/core/utlis/app_router.dart';
-import 'package:a/core/utlis/assets.dart';
+import 'package:commerce_app/constant.dart';
+import 'package:commerce_app/core/utlis/app_router.dart';
+import 'package:commerce_app/core/utlis/assets.dart';
+import 'package:commerce_app/core/utlis/service/sharpref_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.microtask(() {
-      Future.delayed(const Duration(seconds: 3), () {
-        context.go(AppRouter.onBoardingView);
-      });
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 3), () {
+      if (SharprefSingleton.getbool(konboardSeen)) {
+        GoRouter.of(context).go(AppRouter.signUp);
+      } else {
+        GoRouter.of(context).go(AppRouter.onBoardingView);
+      }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,9 +41,10 @@ class SplashView extends StatelessWidget {
           ),
           SvgPicture.asset(Assets.imagesLogo),
           SvgPicture.asset(
+            width: MediaQuery.of(context).size.width,
             Assets.imagesSplashBottom,
             fit: BoxFit.fill,
-          )
+          ),
         ],
       ),
     );
