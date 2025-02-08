@@ -100,7 +100,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 ),
                 onPressed: () {
                   SharprefSingleton.setBool(konboardSeen, true);
-                  GoRouter.of(context).go(AppRouter.signUp);
+                  GoRouter.of(context).go(AppRouter.signInView);
                 },
                 child: const Text('ابدأ الان',
                     style: TextStyle(color: Colors.white)),

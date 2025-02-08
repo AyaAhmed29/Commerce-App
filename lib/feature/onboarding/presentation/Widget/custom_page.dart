@@ -1,4 +1,5 @@
 import 'package:commerce_app/constant.dart';
+import 'package:commerce_app/core/utlis/app_colors.dart';
 import 'package:commerce_app/core/utlis/app_router.dart';
 import 'package:commerce_app/core/utlis/fonts.dart';
 import 'package:commerce_app/core/utlis/service/sharpref_singleton.dart';
@@ -37,12 +38,12 @@ class CustomPage extends StatelessWidget {
                 child: TextButton(
                     onPressed: () {
                       SharprefSingleton.setBool(konboardSeen, true);
-                      GoRouter.of(context).go(AppRouter.signUp);
+                      GoRouter.of(context).go(AppRouter.signInView);
                     },
                     child: Text(
                       'تخطى',
                       style:
-                          AppStyle.regular16.copyWith(color: Colors.blueGrey),
+                          AppStyle.regular16.copyWith(color: AppColors.grey),
                     )),
               ),
             ),

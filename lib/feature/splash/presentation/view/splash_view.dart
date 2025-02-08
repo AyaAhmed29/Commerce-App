@@ -20,7 +20,7 @@ class _SplashViewState extends State<SplashView> {
 
     Future.delayed(const Duration(seconds: 3), () {
       if (SharprefSingleton.getbool(konboardSeen)) {
-        GoRouter.of(context).go(AppRouter.signUp);
+        GoRouter.of(context).go(AppRouter.signInView);
       } else {
         GoRouter.of(context).go(AppRouter.onBoardingView);
       }
