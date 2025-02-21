@@ -1,7 +1,8 @@
 import 'package:commerce_app/core/utlis/app_router.dart';
 import 'package:commerce_app/core/utlis/fonts.dart';
+import 'package:commerce_app/core/widget/custom_appbar.dart';
 import 'package:commerce_app/core/widget/custom_button.dart';
-import 'package:commerce_app/feature/Sign_up/presentation/view/sign_in_view.dart';
+import 'package:commerce_app/features/auth/presentation/widged/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,19 +12,11 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
+      appBar: CustomAppBar(
+          title: 'نسيان كلمة المرور',
           onPressed: () {
             GoRouter.of(context).pop(AppRouter.signInView);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
-        centerTitle: true,
-        title: const Text(
-          'نسيان كلمة المرور',
-          style: AppStyle.bold19,
-        ),
-      ),
+          }),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -35,7 +28,8 @@ class ForgotPasswordView extends StatelessWidget {
                 style: AppStyle.regular16,
               ),
             ),
-            const CustomTextFilgd(
+            CustomTextField(
+              onSaved: (value) {},
               text: 'ادخل رقم الهاتف',
               textInputType: TextInputType.phone,
             ),

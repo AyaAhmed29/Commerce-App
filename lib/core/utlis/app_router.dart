@@ -1,9 +1,9 @@
-import 'package:commerce_app/feature/Sign_up/presentation/view/forgot_password_view.dart';
-import 'package:commerce_app/feature/Sign_up/presentation/view/sign_in_view.dart';
-import 'package:commerce_app/feature/Sign_up/presentation/view/sign_up_view.dart';
-import 'package:commerce_app/feature/Sign_up/presentation/view/verify_code_view.dart';
-import 'package:commerce_app/feature/onboarding/presentation/view/on_boarding_view.dart';
-import 'package:commerce_app/feature/splash/presentation/view/splash_view.dart';
+import 'package:commerce_app/features/auth/presentation/view/forgot_password_view.dart';
+import 'package:commerce_app/features/auth/presentation/view/sign_in_view.dart';
+import 'package:commerce_app/features/auth/presentation/view/sign_up_view.dart';
+import 'package:commerce_app/features/auth/presentation/view/verify_code_view.dart';
+import 'package:commerce_app/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:commerce_app/features/splash/presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -23,7 +23,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: signInView,
-      builder: (context, state) => const SignInView(),
+      builder: (context, state) =>  const SignInView(),
     ),
     GoRoute(
       path: signUpView,
