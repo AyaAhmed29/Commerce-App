@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {super.key,  
+      {super.key,
+      this.obscureText,
+      this.validator,
       required this.text,
       this.icon,
       required this.textInputType,
-     required this.onSaved});
+      required this.onSaved});
   final String text;
-  final Icon? icon;
+  final Widget? icon;
   final Function(String?) onSaved;
   final TextInputType textInputType;
+  final Function(String?)? validator;
+  final bool? obscureText ;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,8 +26,12 @@ class CustomTextField extends StatelessWidget {
             if (value!.isEmpty) {
               return 'هذا الحقل مطلوب';
             }
+            if (validator != null) {
+              return validator!(value);
+            } 
             return null;
           },
+          obscureText:obscureText??false,
           onSaved: onSaved,
           keyboardType: textInputType,
           decoration: InputDecoration(

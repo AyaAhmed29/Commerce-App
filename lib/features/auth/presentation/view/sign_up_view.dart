@@ -1,8 +1,7 @@
-
 import 'package:commerce_app/core/utlis/service/firebase_auth_servise.dart';
 import 'package:commerce_app/features/auth/data/repo/auth_repo_imp.dart';
-import 'package:commerce_app/features/auth/presentation/cubit/sign_up_cubit/sign_in_cubit.dart';
-import 'package:commerce_app/features/auth/presentation/cubit/sign_up_cubit/sign_in_state.dart';
+import 'package:commerce_app/features/auth/presentation/cubit/sign_up_cubit/sign_up_cubit.dart';
+import 'package:commerce_app/features/auth/presentation/cubit/sign_up_cubit/sign_up_state.dart';
 import 'package:commerce_app/features/auth/presentation/widged/sign_up_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +34,9 @@ class SignUpView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return Scaffold(
-              body: ModalProgressHUD(
-                inAsyncCall: state is SignUpLoading ? true : false,
-                child: const SignUpBody(),
-              ),
+            return ModalProgressHUD(
+              inAsyncCall: state is SignUpLoading ? true : false,
+              child: const SignUpBody(),
             );
           },
         );

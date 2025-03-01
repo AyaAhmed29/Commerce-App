@@ -1,78 +1,47 @@
-import 'package:commerce_app/core/widget/custom_appbar.dart';
-import 'package:commerce_app/features/auth/presentation/widged/custom_textfield.dart';
-import 'package:commerce_app/features/auth/presentation/widged/auth_navigation_text.dart';
-import 'package:commerce_app/features/auth/presentation/widged/or_widged.dart';
-import 'package:commerce_app/features/auth/presentation/widged/sign_with.dart';
+import 'package:commerce_app/core/utlis/service/firebase_auth_servise.dart';
+import 'package:commerce_app/features/auth/presentation/cubit/sign_in_cubit/sign_in_cubit.dart';
+import 'package:commerce_app/features/auth/presentation/cubit/sign_in_cubit/sign_in_state.dart';
+import 'package:commerce_app/features/auth/presentation/widged/sign_in_body.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:commerce_app/core/utlis/app_colors.dart';
-import 'package:commerce_app/core/utlis/app_router.dart';
-import 'package:commerce_app/core/utlis/assets.dart';
-import 'package:commerce_app/core/utlis/fonts.dart';
-import 'package:commerce_app/core/widget/custom_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../data/repo/auth_repo_imp.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: 'تسجيل الدخول',
-        onPressed: () {
-          GoRouter.of(context).pop();
-        },
+    return BlocProvider(
+      create: (context) => SignInCubit(
+        AuthRepoImp(firebaseAuthServise: FirebaseAuthServise()),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            CustomTextField(
-              text: ' البريد الالكترونى',
-              textInputType: TextInputType.emailAddress,
-              onSaved: (value) {},
-            ),
-            CustomTextField(
-              text: ' كلمة المرور',
-              icon: const Icon(Icons.visibility),
-              textInputType: TextInputType.visiblePassword,
-             onSaved: (value) {},
-            ),
-            TextButton(
-                onPressed: () {
-                  GoRouter.of(context).push(AppRouter.forgotPasswordView);
-                },
-                child: Text(
-                  'نسيت كلمة المرور؟',
-                  style:
-                      AppStyle.semiBold13.copyWith(color: AppColors.lightGreen),
-                )),
-            CustomButton(ontap: () async {}, text: 'تسجيل دخول'),
-            const SizedBox(height: 16),
-            AuthNavigationText(
-              text: 'لا تمتلك حساب؟',
-              textNav: ' قم بإنشاء حساب',
-              onPressed: () {
-                GoRouter.of(context).push(AppRouter.signUpView);
-              },
-            ),
-            const SizedBox(height: 30),
-            const OrWidged(),
-            const SignWith(
-              text: 'تسجيل بواسطه جوجل',
-              imageIcon: Assets.imagesGoogleIcon,
-            ),
-            const SignWith(
-              text: 'تسجيل بواسطه أبل',
-              imageIcon: Assets.imagesApplIcon,
-            ),
-            const SignWith(
-              text: 'تسجيل بواسطه فيسبوك',
-              imageIcon: Assets.imagesFacebookIcon,
-            ),
-          ],
-        ),
-      ),
-    );
+      child: Builder(builder: (context) {
+        return BlocConsumer<SignInCubit, SignInState>(
+          listener: (context, state) {
+            if (state is SignInFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage),
+                ),
+              );
+            }
+            if (state is SignInSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('تم التسجيل بنجاح'),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return ModalProgressHUD(
+              inAsyncCall: state is SignInLoading ,
+              child: const SignInBody(),
+            );
+          },
+        );
+      }),
+    ) ;
   }
 }

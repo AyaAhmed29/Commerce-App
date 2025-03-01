@@ -5,6 +5,7 @@ import 'package:commerce_app/features/auth/domain/entites/user_entity.dart';
 import 'package:commerce_app/features/auth/domain/repos/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 
+
 class AuthRepoImp extends AuthRepo {
   final FirebaseAuthServise firebaseAuthServise;
 
@@ -23,4 +24,36 @@ class AuthRepoImp extends AuthRepo {
       return left(ServerFailure('لقد حدث خطأ، يرجى المحاولة مرة أخرى.'));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+      String email, String pass) async {
+    try {
+      var user = await firebaseAuthServise.signInWithEmailAndPassword(
+          email: email, pass: pass);
+      return right(UserModel.fromFirebaseUser(user!));
+    } on Exception {
+      return left(ServerFailure('لقد حدث خطأ، يرجى المحاولة مرة أخرى.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    try {
+      var user = await firebaseAuthServise.signInWithGoogle();
+      return right(UserModel.fromFirebaseUser(user));
+    } on Exception {
+      return left(ServerFailure('لقد حدث خطأ، يرجى المحاولة مرة أخرى.'));
+    }
+  }
+  @override
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+    try {
+      var user = await firebaseAuthServise.signInWithFacebook();
+      return right(UserModel.fromFirebaseUser(user!));
+    } on Exception {
+      return left(ServerFailure('لقد حدث خطأ، يرجى المحاولة مرة أخرى.'));
+    }
+  }
+  
 }
